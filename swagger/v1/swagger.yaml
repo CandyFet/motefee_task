@@ -1,0 +1,187 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/suppliers":
+    get:
+      summary: get list of all suppliers
+      tags:
+      - Suppliers
+      responses:
+        '200':
+          description: succesfull
+          content:
+            application/json:
+              example:
+              - id: 1
+                name: supplier1 name
+              - id: 2
+                name: supplier2 name
+    post:
+      summary: create supplier
+      tags:
+      - Suppliers
+      parameters: []
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              example:
+                id: 1
+                name: supplier1 name
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+        '422':
+          description: invalid request
+          content:
+            application/json:
+              example:
+                error: true
+                mesage:
+                  name: must be present
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                  message:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+  "/api/v1/suppliers/{id}":
+    get:
+      summary: Retrieves a supplier
+      tags:
+      - Suppliers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: supplier found
+          content:
+            application/json:
+              example:
+                id: '1'
+                name: supplier name
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+        '404':
+          description: supplier not found
+          content:
+            application/json:
+              example:
+                error: true
+                mesage: user not found
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                  message:
+                    type: string
+    patch:
+      summary: Updates supplier
+      tags:
+      - Suppliers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: supplier update
+          content:
+            application/json:
+              example:
+                id: '1'
+                name: changed name
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+        '404':
+          description: supplier not found
+          content:
+            application/json:
+              example:
+                error: true
+                mesage: supplier not found
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                  message:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+    delete:
+      summary: Destroy supplier
+      tags:
+      - Suppliers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: supplier deleted
+        '404':
+          description: supplier not found
+          content:
+            application/json:
+              example:
+                error: true
+                mesage: supplier not found
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                  message:
+                    type: string
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
