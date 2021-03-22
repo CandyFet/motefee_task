@@ -1,4 +1,7 @@
-en:
+ru:
   supplier:
     error:
       not_found: Поставщик не найден
+  product:
+    error:
+      not_found: Товар не найден
