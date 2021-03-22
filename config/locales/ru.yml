@@ -1,0 +1,4 @@
+en:
+  supplier:
+    error:
+      not_found: Поставщик не найден
