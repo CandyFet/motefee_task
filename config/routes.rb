@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :suppliers
       resources :products
+      resources :stocks, only: %i[index show create update]
     end
   end
 end
